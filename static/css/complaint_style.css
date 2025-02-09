@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&family=Vollkorn:ital,wght@0,400..900;1,400..900&display=swap');
+
+body{
+  font-family: "Vollkorn" ;
+ 
+}
+
+.navbar {
+    background-color: black !important; /* Set background color to black */
+  }
+  .navbar-brand, .nav-link {
+    color: white !important; /* White text for navbar items */
+  }
+  .nav-link:hover {
+    color: #00d9ff !important; /* Add hover effect */
+  }
+
+/* File Complaint Form Custom Styling */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    
+}
+
+h2 {
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+label {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+input, select, textarea {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+textarea {
+    resize: none;
+}
+
+button {
+    padding: 12px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    background-color: #28a745;
+    border: none;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.complaint-card{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  background-color: rgb(247, 246, 246);
+}

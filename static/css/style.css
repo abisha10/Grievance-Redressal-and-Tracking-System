@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&family=Vollkorn:ital,wght@0,400..900;1,400..900&display=swap');
+
+body{
+  font-family: "Vollkorn" ;
+ 
+}
+
+.navbar {
+    background-color: black !important; /* Set background color to black */
+  }
+  .navbar-brand, .nav-link {
+    color: white !important; /* White text for navbar items */
+  }
+  .nav-link:hover {
+    color: #00d9ff !important; /* Add hover effect */
+  }
+
+.auth{
+  font-family: "Vollkorn", serif;
+  margin-top: 100px;
+  max-width: 400px;
+  border: 1px solid #007BC1;
+  border-radius: 10px;
+  padding: 50px;
+  background-image: linear-gradient(to bottom right, #89edff, rgb(253, 255, 227));
+  box-shadow: rgb(37, 104, 176) 0px 20px 30px -10px;
+}
+
+
+@media(max-width:768px){
+  .auth{
+    max-width: 300px;
+  }
+}
+
+/* banner */
+/* .banner-img img{
+  width: 100%;
+  height: 100vh;
+} */
+
+
+.banner-content .btn:hover{
+  background-color: #000000;
+  color: #00d9ff;
+  border-color: #000000;
+}
+/* animation for col1 col2 */
+.col1, .col2 {
+  position: relative;
+  opacity: 0;
+  transform: translateX(-100px); /* For .col1 */
+}
+
+.col2 {
+  transform: translateX(100px); /* For .col2 */
+}
+
+@keyframes slideLeft {
+  from {
+      opacity: 0;
+      transform: translateX(-100px);
+  }
+  to {
+      opacity: 1;
+      transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+      opacity: 0;
+      transform: translateX(100px);
+  }
+  to {
+      opacity: 1;
+      transform: translateX(0);
+  }
+}
+
+
+.round1{
+  height: 200px;
+  width: 200px;
+  border-radius:  15px 50px 30px; 
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+/* .para{
+  text-align: center;
+  align-content: center;
+} */
+.para {
+  text-align: center;         /* Centers text horizontally */
+  display: flex;  
+  flex-direction: column;            /* Makes it a flex container */
+  align-items: center;         /* Centers content vertically */
+  justify-content: center;     /* Centers content horizontally */
+  height: 100%;                /* Ensure div takes full height */
+  color: #00eaff;                /* Just for better visibility */
+  font-weight: bold;
+}
+
+.logout:hover{
+  color: #00d9ff;
+}
+/* department card hover */
+.card1:hover{
+  background-color: #e7fbff;
+  transform: scale(1.08);
+  transition: transform .5s ease;
+}
+
+.card-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 18px;
+    width: 100%;
+}
+
+/* FAQ */
+#faq-section {
+  padding: 40px 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+  text-align: center;
+}
+
+
+.faq-container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.faq-item {
+  background-color: #bee5f3;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.faq-question {
+  background-color: #468da2;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.faq-question:hover {
+  background-color: #35788a;
+}
+
+.faq-answer {
+  padding: 0 20px;
+  background-color: #bee5f3;
+  display: none;
+  font-size: 16px;
+  color: #333;
+  transition: max-height 0.3s ease;
+}
+
+.faq-answer p {
+  padding: 10px 0;
+}
+
+.faq-item.active .faq-answer {
+  display: block;
+}

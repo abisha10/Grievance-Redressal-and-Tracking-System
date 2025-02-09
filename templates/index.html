@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grievance Redressal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  {% comment %} pie chart: chart.js {% endcomment %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="{% static "css/style.css" %}">
+  {% comment %} font awesome {% endcomment %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+  
+</head>
+<body class="index bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container-fluid ms-3 me-3">
+      <!-- Left-side Heading -->
+      <a class="navbar-brand fw-bold"  href="#"><i class="fa-solid fa-people-roof fa-lg mx-3" style="color: #00d9ff;"></i>Grievance Redressal</a>
+      <!-- Navbar Toggler (for small screens) -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" ></span>
+
+      </button>
+      <!-- Right-side Links -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto ">
+          <li class="nav-item px-2">
+            <a class="nav-link" style="color:#00d9ff !important;" href="{% url "user:index" %}">Home</a>
+          </li>
+          <li class="nav-item px-2">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item px-2">
+            <a class="nav-link" href="#faq-section">FAQs</a>
+          </li>
+          <li class="nav-item px-2">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+          <li class="nav-item px-2">
+            <a class="nav-link" href="{% url 'user:login' %}">Citizen Login</a>
+          </li>
+          <li class="nav-item px-2">
+            <a class="nav-link" href="{% url "department:login" %}">Officer Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="banner" style="background: url('{% static "images/banner1.jpg" %}') no-repeat center center/cover; height: 100vh; width: 100%;">
+    <div class="banner-content d-flex flex-column justify-content-center align-items-center vh-100 text-white">
+      <h3>Welcome to the Municipal Corporation Grievance Redressal System</h3>
+      {% comment %} <p class="fs-5">Submit your complaints easily and track their status online.</p> {% endcomment %}
+      <p class="fs-5">Register your complaints and get them resolved quickly by the right department.</p>
+      <a href="{% url 'user:register' %}" class="btn btn-outline-light btn-lg mt-3">Get Started</a>
+    </div>
+   
+  </div>
+  {% comment %} number display {% endcomment %}
+  <div class="container" style="margin-top:100px">
+    <div class="row ">
+      <div class="col-md-6 col1">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header text-center fs-4 py-3"><i class="fa-solid fa-plus me-2" style="color: #ffffff;"></i>Total Complaints</div>
+                <div class="card-body text-center">
+                    <h3 class="card-title ">{{ total_complaints }}</h3>
+                </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header text-center fs-4 py-3"><i class="fa-solid fa-check-to-slot me-2" style="color: #ffffff;"></i>Resolved Complaints</div>
+                <div class="card-body text-center">
+                    <h3 class="card-title">{{ resolved_complaints }}</h3>
+                </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-6">  
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-header text-center fs-4 py-3"><i class="fa-solid fa-triangle-exclamation me-2" style="color: #ffffff;"></i> In Progress</div>
+                <div class="card-body text-center">
+                    <h3 class="card-title">{{ in_progress_complaints }}</h3>
+                </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+              
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-header text-center fs-4 py-3"> <i class="fa-solid fa-trash-can me-2" style="color: #ffffff;"></i>Rejected Complaints </div>
+                <div class="card-body text-center">
+                    <h3 class="card-title">{{ rejected_complaints }}</h3>
+                </div>
+            </div>
+          </div>
+      </div>
+      </div>
+ 
+      <div class="col-md-6 col2">
+        <div style="width: 300px; height: 300px; margin: auto;">
+          <canvas id="complaintChart"></canvas>
+        </div>
+      </div>
+</div>
+</div>
+
+
+  {% comment %} about section {% endcomment %}
+  <section id="about" class="py-5 bg-dark ">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mt-5 col1">
+          <h3 class="" style="color: #00d9ff; text-shadow: 1px 1px 3px rgb(215, 215, 215);">About Our Grievance Redressal System</h3>
+          <div class="my-5">
+            <p class="mt-3 text-white fs-5">
+              Our Municipal Corporation Grievance Redressal System is designed to address public concerns efficiently and transparently. Citizens can report issues across various departments such as Roads, Sewage, Electricity, and more.
+            </p>
+            <p class="text-white fs-5">
+              We are committed to resolving complaints in a timely manner, ensuring better infrastructure and service quality for all residents.Key features of our system includes real-time complaint tracking, department-wise handling of issues, and secure data management.
+            </p>
+            <p class="text-white fs-5"></p>
+
+            <p class="text-white fs-5">We are dedicated to improving city infrastructure and public services through proactive complaint resolution. For further assistance, feel free to reach out to our support team via the Contact Us section. </p>
+
+          </div>
+          <a href="#how" style="color: #00d9ff;text-decoration:none;  font-size:28px" >How it workds?</a>
+        </div>
+        <div class="col-md-6 text-center col2">
+          <img src="{% static 'images/about.png' %}" alt="About Us" class="img-fluid rounded ">
+        </div>
+      </div>
+    </div>
+  
+  
+  {% comment %} how it works {% endcomment %}
+  <div class="d-flex flex-wrap justify-content-center  my-3" id="how">
+    <div class="para col1" style="background: url('{% static "images/neon.png" %}') no-repeat center center/cover; width: 370px; height: 330px;">
+      <h3>1</h3>
+      <h4>Login to the portal</h4>
+    </div>
+    <div class="para col1" style="background: url('{% static "images/neon.png" %}') no-repeat center center/cover; width: 370px; height: 330px;">
+      <h3>2</h3>
+      <h4>File your Grievance</h4>
+    </div>
+    <div class="para col2" style="background: url('{% static "images/neon.png" %}') no-repeat center center/cover; width: 370px; height: 330px;">
+      <h3>3</h3>
+      <h4>Submit the form</h4>
+    </div>
+    <div class="para col2" style="background: url('{% static "images/neon.png" %}') no-repeat center center/cover; width: 370px; height: 330px;">
+      <h3>4</h3>
+      <h4>Track your Grievance</h4>
+    </div>
+  </div>
+
+</section>
+
+{% comment %} FAQ section {% endcomment %}
+<section id="faq-section">
+  <h2 class="text-center mb-4" style="color: #00d9ff; text-shadow: 1px 1px 3px rgb(215, 215, 215);">Frequently Asked Questions</h2>
+  <div class="faq-container">
+      <div class="faq-item">
+          <button class="faq-question">What is the purpose of this system?</button>
+          <div class="faq-answer">
+              <p>This system allows citizens to file complaints related to municipal services such as roads, sanitation, electricity, waste management, etc. It helps streamline the complaint resolution process and ensures transparency.</p>
+          </div>
+      </div>
+      <div class="faq-item">
+          <button class="faq-question">How can I file a complaint?</button>
+          <div class="faq-answer">
+              <p>You can file a complaint by clicking on the "File a Complaint" button on the homepage, filling in the required details, and submitting the form.</p>
+          </div>
+      </div>
+      <div class="faq-item">
+          <button class="faq-question">How can I check the status of my complaint?</button>
+          <div class="faq-answer">
+              <p>Go to the "Track Complaint" section and enter your registered email ID to view the status of your complaint.</p>
+          </div>
+      </div>
+      <div class="faq-item">
+          <button class="faq-question">How will I know if my complaint is resolved?</button>
+          <div class="faq-answer">
+              <p>Once your complaint is resolved, you will receive an email notification confirming that your issue has been addressed.</p>
+          </div>
+      </div>
+      <div class="faq-item">
+          <button class="faq-question">Can my complaint be rejected?</button>
+          <div class="faq-answer">
+              <p>Yes, if your complaint is invalid, incomplete, or does not fall under the municipal corporation’s services, it may be rejected by the concerned department.</p>
+          </div>
+      </div>
+      <div class="faq-item">
+          <button class="faq-question">Who can access my complaint details?</button>
+          <div class="faq-answer">
+              <p>Only authorized municipal officers can access and process your complaint. Your personal details are kept confidential.</p>
+          </div>
+      </div>
+      <div class="faq-item">
+          <button class="faq-question">What is the time limit for redress of Grievance?</button>
+          <div class="faq-answer">
+              <p>Seven to Thirty days, depending on the complexity and urgency.</p>
+          </div>
+      </div>
+  </div>
+</section>
+
+{% comment %} contact {% endcomment %}
+<div class="container mt-5 text-white" id="contact">
+  <h2 class="text-center mb-4" style="color: #00d9ff; text-shadow: 1px 1px 3px rgb(215, 215, 215);">Contact Us</h2>
+  <p class="text-center mb-5 fs-4">Feel free to reach out to us for any queries or support.</p>
+
+  <div class="row">
+      <!-- Left Side: Contact Info -->
+      <div class="col-md-6  mb-5 ps-5">
+          <h4 class="mb-4">Our Address</h4>
+          <p class=" my-4"><i class="bi bi-geo-alt-fill me-2 " style="color: #00d9ff;"></i> 124, Main Street, Your City, India</p>
+          <p class=" my-4"><i class="bi bi-telephone-fill me-2" style="color: #00d9ff;"></i> +91 98765 44210</p>
+          <p class=" my-4"><i class="bi bi-envelope-fill me-2" style="color: #00d9ff;"></i> support@municipality.com</p>
+          <p class=" my-4"><i class="bi bi-clock-fill me-2" style="color: #00d9ff;"></i> Mon - Fri: 9:00 AM to 5:00 PM</p>
+      </div>
+
+      <!-- Right Side: Contact Form -->
+      <div class="col-md-6  mb-5 pe-5">
+          <form>
+              <div class="mb-3">
+                  <label for="name" class="form-label">Your Name</label>
+                  <input type="text" class="form-control" id="name" placeholder="Enter your name" style="background-color:rgb(87, 87, 87); border:none; color:white;">
+              </div>
+              <div class="mb-3">
+                  <label for="email" class="form-label">Your Email</label>
+                  <input type="email" class="form-control" id="email" placeholder="Enter your email" style="background-color:rgb(87, 87, 87); border:none; color:white;">
+              </div>
+              <div class="mb-3">
+                  <label for="message" class="form-label">Your Message</label>
+                  <textarea class="form-control" id="message" rows="4" placeholder="Write your message" style="background-color:rgb(87, 87, 87); border:none; color:white;"></textarea>
+              </div>
+              <div class="d-flex justify-content-center"><button type="submit" class="btn btn-secondary text-center">Submit</button></div>
+          </form>
+        </div>
+  </div>
+</div>
+
+
+
+{% comment %} footer {% endcomment %}
+<footer class="bg-black text-white text-center py-3">
+  <p class="mb-0">&copy; 2025 Municipal Corporation. All rights reserved.</p>
+</footer>
+
+{% comment %} scrolling animation {% endcomment %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (entry.target.classList.contains("col1")) {
+                    entry.target.style.animation = "slideLeft 1s forwards";
+                } else if (entry.target.classList.contains("col2")) {
+                    entry.target.style.animation = "slideRight 1s forwards";
+                }
+                observer.unobserve(entry.target); // Optional: Remove observer after animation
+            }
+        });
+    }, { threshold: 0.5 }); // 50% of the element should be visible to trigger
+
+    // Select elements and observe them
+    document.querySelectorAll(".col1, .col2").forEach(col => observer.observe(col));
+});
+
+</script>
+
+{% comment %} Pie chart {% endcomment %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      var ctx = document.getElementById("complaintChart").getContext("2d");
+      var complaintChart = new Chart(ctx, {
+          type: "pie",
+          data: {
+              labels: ["Resolved", "In Progress", "Rejected"],
+              datasets: [{
+                  data: [
+                      {{ resolved_complaints }},
+                      {{ in_progress_complaints }},
+                      {{ rejected_complaints }}
+                  ],
+                  backgroundColor: ["#28a745", "#ffc107", "#dc3545"], // Green, Yellow, Red
+                  hoverOffset: 4
+              }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false
+          }
+      });
+  });
+  </script>
+  {% comment %} FAQ section {% endcomment %}
+  <script>
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            item.classList.toggle('active');
+        });
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
